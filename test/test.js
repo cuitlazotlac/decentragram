@@ -97,4 +97,14 @@ contract('Decentragram', ([deployer, author, tipper]) => {
       await decentragram.tipImageOwner(99, { from: tipper, value: web3.utils.toWei('1', 'Ether')}).should.be.rejected;
     })
   })
+
+  describe('images', async () => {
+    let result 
+
+    it('creates images', async() => {
+      result = await decentragram.uploadImage();
+      let image = await decentragram.images(1)
+      console.log(images)
+    })
+  })
 })
