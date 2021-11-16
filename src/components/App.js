@@ -3,6 +3,7 @@ import Web3 from "web3";
 import Identicon from "identicon.js";
 import "./App.css";
 import Decentragram from "../abis/Decentragram.json";
+
 import Navbar from "./Navbar";
 import Main from "./Main";
 
@@ -29,6 +30,17 @@ class App extends Component {
     //Load accounts
     const accounts = await web3.eth.getAccounts();
     this.setState({ account: accounts[0] });
+
+    const networkId = await web3.eth.net.getId();
+    const networkData = Decentragram.networks[networkId];
+    if (networkData) {
+      const decentragram = web3.eth.Contract(
+        Decentragram.abi,
+        networkData.address
+      );
+    } else {
+      window.alert("Decentragram contract not deployed to detected network.");
+    }
   }
 
   constructor(props) {
